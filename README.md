@@ -1,8 +1,8 @@
 # advent21-kt
 
-Welcome to the Advent of Code[^aoc] Kotlin project created by [pocams][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
+Welcome to the Advent of Code[^aoc] Kotlin+GUI project created by [pocams][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
 
-In this repository, pocams is about to provide solutions for the puzzles using [Kotlin][kotlin] language.
+In this repository, pocams is about to provide some embarrasingly bad  [Kotlin][kotlin] and [Compose Desktop][compose] code.
 
 If you're stuck with Kotlin-specific questions or anything related to this template, check out the following resources:
 
@@ -21,5 +21,6 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
 [github]: https://github.com/pocams
 [issues]: https://github.com/kotlin-hands-on/advent-of-code-kotlin-template/issues
 [kotlin]: https://kotlinlang.org
+[compose]: https://www.jetbrains.com/lp/compose-mpp/
 [slack]: https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
 [template]: https://github.com/kotlin-hands-on/advent-of-code-kotlin-template
