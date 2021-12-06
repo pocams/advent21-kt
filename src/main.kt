@@ -14,7 +14,7 @@ fun main() = application {
     ) {
         MaterialTheme {
             Box(Modifier.fillMaxSize()) {
-                Day1Screen()
+                Day5Screen()
             }
         }
     }
