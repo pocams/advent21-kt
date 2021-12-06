@@ -8,4 +8,5 @@ object Colors {
     val Blue = Color(red = 0x25, green = 0x63, blue = 0xEB)
     val DarkBlue = Color(red = 0x1E, green = 0x3A, blue = 0x8A)
     val Yellow = Color(red = 0xFC, green = 0xD3, blue = 0x4D)
+    val DarkGray = Color(red = 0x1F, green = 0x29, blue = 0x37)
 }

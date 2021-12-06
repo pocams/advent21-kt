@@ -1,6 +1,7 @@
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -8,7 +9,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import java.io.File
 import java.lang.Integer.max
 import kotlin.math.sign
@@ -56,13 +59,10 @@ class Day5State {
     val part2Counts get() = lines.flatMap { it.coveredCoordinates() }.groupingBy { it }.eachCount()
     val counts get() = if (part2) { part2Counts } else { part1Counts }
 
+    val overlaps get() = counts.values.filter { it > 1 }.count()
+
     fun loadData() {
         lines = File(dataFile).readLines().map { Line.fromString(it) }
-        reset()
-    }
-
-    fun reset() {
-
     }
 
     init {
@@ -89,8 +89,6 @@ fun Day5Screen() {
 
 @Composable
 fun Day5Controls(state: Day5State) {
-    val composableScope = rememberCoroutineScope()
-
     Row(verticalAlignment = Alignment.CenterVertically) {
 
         Column(horizontalAlignment = Alignment.End) {
@@ -111,16 +109,17 @@ fun Day5Controls(state: Day5State) {
                     checked = state.part2,
                     onCheckedChange = {
                         state.part2 = it
-                        state.reset()
                     }
                 )
             }
         }
 
-        Button(onClick = {
-            state.reset()
-        }) {
-            Text("Scan")
+        Spacer(Modifier.width(40.dp))
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("Overlap count", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+            Spacer(Modifier.height(12.dp))
+            Text(state.overlaps.toString(), fontSize = 20.sp)
         }
 
     }
@@ -129,7 +128,9 @@ fun Day5Controls(state: Day5State) {
 @Composable
 fun Day5Display(state: Day5State) {
     Row {
-        Day5Canvas(state)
+        Box(Modifier.padding(PaddingValues(end = 5.dp))) {
+            Day5Canvas(state)
+        }
         Day5List(state)
     }
 }
@@ -157,7 +158,7 @@ fun Day5List(state: Day5State) {
 @Composable
 fun Day5Canvas(state: Day5State) {
     Canvas(modifier = Modifier.aspectRatio(1.0f)) {
-        println("canvas ${this.size}")
+        drawRect(Colors.DarkGray, size=this.size)
         val totalTileSize = this.size.width / state.canvasSize.toFloat()
         val tileSize = totalTileSize * 0.75f
         val tileSpacing = totalTileSize - tileSize
@@ -166,9 +167,14 @@ fun Day5Canvas(state: Day5State) {
         for ((point, count) in counts) {
             val x = point.first * totalTileSize + tileSpacing / 2
             val y = point.second * totalTileSize + tileSpacing / 2
+//            println("at $point: $count @ $x, $y [$tileSize]")
             drawRect(
-                Colors.Blue,
-                Offset(x * totalTileSize + tileSpacing / 2, y * totalTileSize + tileSpacing / 2),
+                when (count) {
+                    1 -> Colors.Blue
+                    2 -> Colors.Green
+                    else -> Colors.Red
+                },
+                Offset(x, y),
                 Size(tileSize, tileSize))
         }
     }
