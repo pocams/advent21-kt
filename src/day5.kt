@@ -2,6 +2,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -72,12 +73,12 @@ class Day5State {
 }
 
 @Composable
-fun Day5Screen() {
+fun Day5Screen(goBack: () -> Unit) {
     val state = remember { Day5State() }
 
     Column(Modifier.fillMaxSize().padding(5.dp)) {
         Box {
-            Day5Controls(state)
+            Day5Controls(state, goBack)
         }
 
         Box(Modifier.padding(5.dp)) {
@@ -88,8 +89,14 @@ fun Day5Screen() {
 }
 
 @Composable
-fun Day5Controls(state: Day5State) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+fun Day5Controls(state: Day5State, goBack: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
+
+        Button(modifier = Modifier.height(60.dp), onClick = {
+            goBack()
+        }) {
+            Text("Back")
+        }
 
         Column(horizontalAlignment = Alignment.End) {
             Row(verticalAlignment = Alignment.CenterVertically) {

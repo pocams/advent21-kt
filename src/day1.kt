@@ -79,12 +79,12 @@ class Day1State {
 }
 
 @Composable
-fun Day1Screen() {
+fun Day1Screen(goBack: () -> Unit) {
     val state = remember { Day1State() }
 
     Column(Modifier.fillMaxSize().padding(5.dp)) {
         Box(Modifier.height(80.dp)) {
-            Day1Status(state)
+            Day1Status(state, goBack)
         }
 
         Box(Modifier.padding(5.dp)) {
@@ -94,10 +94,16 @@ fun Day1Screen() {
 }
 
 @Composable
-fun Day1Status(state: Day1State) {
+fun Day1Status(state: Day1State, goBack: () -> Unit) {
     val composableScope = rememberCoroutineScope()
 
     Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly) {
+        Button(modifier = Modifier.fillMaxHeight(.8f), onClick = {
+            goBack()
+        }) {
+            Text("Back")
+        }
+
         Column(horizontalAlignment = Alignment.End) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Use real data?")
