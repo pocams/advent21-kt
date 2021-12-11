@@ -98,6 +98,8 @@ fun Day5Controls(state: Day5State, goBack: () -> Unit) {
             Text("Back")
         }
 
+        Spacer(Modifier.width(20.dp))
+
         Column(horizontalAlignment = Alignment.End) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text("Use real data?")
