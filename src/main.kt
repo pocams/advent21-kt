@@ -16,7 +16,8 @@ enum class Screen {
     Menu,
     Day1,
     Day4,
-    Day5
+    Day5,
+    Day11
 }
 
 @Composable
@@ -36,6 +37,10 @@ fun menu(onScreenChange: (Screen) -> Unit) {
 
         Button(onClick = { onScreenChange(Screen.Day5) }) {
             Text("Day 5")
+        }
+
+        Button(onClick = { onScreenChange(Screen.Day11) }) {
+            Text("Day 11")
         }
     }
 }
@@ -59,6 +64,10 @@ fun topLevel() {
 
         AnimatedVisibility(screen == Screen.Day5, enter = slideInHorizontally(initialOffsetX = { it }), exit = slideOutHorizontally(targetOffsetX = { it })) {
             Day5Screen { screen = Screen.Menu }
+        }
+
+        AnimatedVisibility(screen == Screen.Day11, enter = slideInHorizontally(initialOffsetX = { it }), exit = slideOutHorizontally(targetOffsetX = { it })) {
+            Day11Screen { screen = Screen.Menu }
         }
     }
 }
